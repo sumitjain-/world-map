@@ -1,8 +1,8 @@
 import React from "react";
 import Datamap from "datamaps";
 import { Dot } from "./Dot";
-import { setZoom, zoomClickHandler } from "./zoom";
-import { addMapEvents, buildPaletteScale } from "./helpers";
+import { zoomClickHandler } from "./zoom";
+import { buildPaletteScale, mapDone } from "./helpers";
 /*
 TODOS
 * Country click handler
@@ -43,10 +43,7 @@ export class MapContainer extends React.Component {
   }
 
   drawMap = () => {
-    const mapInstance = this;
-    let map = this.datamap;
-
-    if (!map) {
+    if (!this.datamap) {
       this.datamap = new Datamap({
         element: this.mapRef.current,
         data: this.buildDataset(),
@@ -56,20 +53,12 @@ export class MapContainer extends React.Component {
         scope: "world",
         geographyConfig: {
           borderColor: "#dedede",
+          popupTemplate: () => null,
           highlightFillColor(geo) {
             return geo.fillColor || "#f5f5f5";
           }
         },
-        done: datamap => {
-          mapInstance.zoom = setZoom.call(mapInstance, datamap);
-
-          addMapEvents.call(this, datamap);
-
-          datamap.svg
-            .call(mapInstance.zoom)
-            .on("dblclick.zoom", null)
-            .on("wheel.zoom", null);
-        }
+        done: mapDone.bind(this)
       });
 
       window.datamap = this.datamap;

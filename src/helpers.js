@@ -1,5 +1,5 @@
 import d3 from "d3";
-import { zoomAction } from "./zoom";
+import { setZoom, zoomAction } from "./zoom";
 
 export function buildPaletteScale(values, colorRange = ["#fde2ce", "#f7a05f"]) {
   const scaleDomain = d3.extent(values);
@@ -19,6 +19,17 @@ export function addMapEvents(datamap) {
   if (!this.props.disableRegionClicks) {
     regions.on("click", onMouseClick.bind(this));
   }
+}
+
+export function mapDone(datamap) {
+  this.zoom = setZoom.call(this, datamap);
+
+  addMapEvents.call(this, datamap);
+
+  datamap.svg
+    .call(this.zoom)
+    .on("dblclick.zoom", null)
+    .on("wheel.zoom", null);
 }
 
 function onMouseClick(geo) {

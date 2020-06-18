@@ -78,7 +78,6 @@ export function zoomAction(
   { coordinates, newScale },
   { transition = false, scaleUpdate = false, resetHighlighted = false } = {}
 ) {
-  console.log("zoomAction ", { coordinates, newScale });
   const width = { full: -this.mapWidth },
     height = { full: -this.mapHeight },
     newTranslate = [];

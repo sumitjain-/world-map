@@ -1,14 +1,13 @@
 {
-  "name": "react",
+  "name": "world-map",
   "version": "1.0.0",
-  "description": "React example starter project",
-  "keywords": [
-    "react",
-    "starter"
-  ],
+  "description": "",
+  "keywords": [],
   "main": "src/index.js",
   "dependencies": {
+    "@types/d3-tip": "3.5.5",
     "d3": "3.5.17",
+    "d3-tip": "0.9.1",
     "datamaps": "0.5.9",
     "react": "16.12.0",
     "react-dom": "16.12.0",
