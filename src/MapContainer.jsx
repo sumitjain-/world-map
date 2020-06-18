@@ -71,6 +71,8 @@ export class MapContainer extends React.Component {
             .on("wheel.zoom", null);
         }
       });
+
+      window.datamap = this.datamap;
     }
   };
 

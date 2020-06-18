@@ -22,10 +22,22 @@ export function addMapEvents(datamap) {
 }
 
 function onMouseClick(geo) {
+  if (
+    this.state.highlighted ||
+    !this.props.dataset ||
+    !this.props.dataset[geo.id]
+  ) {
+    return;
+  }
   const c = this.datamap.path.centroid(geo);
 
-  const coordinates = [-c[0], -c[1]],
+  const coordinates = [
+      -2 * c[0] + this.mapWidth / 2,
+      -2 * c[1] + this.mapHeight / 2
+    ],
     newScale = 2;
+
+  this.setState({ highlighted: geo.id });
 
   zoomAction.call(
     this,

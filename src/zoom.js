@@ -48,7 +48,7 @@ export function zoomClickHandler(factor) {
   zoomAction.call(
     this,
     { coordinates, newScale },
-    { transition: true, scaleUpdate: true }
+    { transition: true, scaleUpdate: true, resetHighlighted: true }
   );
 }
 
@@ -76,8 +76,9 @@ export function checkForZoomReset({ newTranslate, width, height }) {
 
 export function zoomAction(
   { coordinates, newScale },
-  { transition = false, scaleUpdate = false } = {}
+  { transition = false, scaleUpdate = false, resetHighlighted = false } = {}
 ) {
+  console.log("zoomAction ", { coordinates, newScale });
   const width = { full: -this.mapWidth },
     height = { full: -this.mapHeight },
     newTranslate = [];
@@ -111,4 +112,8 @@ export function zoomAction(
     width,
     height
   });
+
+  if (resetHighlighted) {
+    this.setState({ highlighted: null });
+  }
 }
